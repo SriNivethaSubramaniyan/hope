@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Story I Never Told</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -54,23 +52,13 @@
                 }
             }
         };
-    </script>
 
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700;800;900&display=swap');
-
-        * {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-        }
-
+        * {font-family: 'Helvetica Neue', Arial, sans-serif; }
+        html {scroll-behavior: smooth; }
+        body {margin: 0; }
         .memory-card {
             position: relative;
             height: 420px;
@@ -85,13 +73,11 @@
                 border-color 0.35s ease,
                 box-shadow 0.35s ease;
         }
-
         .memory-card:hover {
             transform: translateY(-8px) scale(1.02);
             border-color: #E50914;
             box-shadow: 0 15px 35px rgba(229, 9, 20, 0.4);
         }
-
         .memory-cover {
             position: absolute;
             inset: 0;
@@ -109,13 +95,11 @@
                 opacity 0.45s ease,
                 transform 0.45s ease;
         }
-
         .memory-card:hover .memory-cover {
             background:
                 radial-gradient(circle at center, rgba(229, 9, 20, 0.25), transparent 55%),
                 linear-gradient(145deg, #242424, #0e0e0e);
         }
-
         .memory-cover-content {
             display: flex;
             flex-direction: column;
@@ -123,7 +107,6 @@
             justify-content: center;
             gap: 10px;
         }
-
         .memory-hover-text {
             color: white;
             font-size: 20px;
@@ -135,60 +118,49 @@
                 opacity 0.3s ease,
                 transform 0.3s ease;
         }
-
         .memory-card:hover .memory-hover-text {
             opacity: 1;
             transform: translateY(0);
         }
-
         .memory-cover-hint {
             color: #999;
             font-size: 12px;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-
         .memory-image {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: #111;
             opacity: 0;
-            transform: scale(1.08);
-            transition:
-                opacity 0.7s ease,
-                transform 0.8s ease;
+            transform: scale(1);
+            transition: opacity 0.7s ease, transform 0.8s ease;
             z-index: 1;
         }
-
         .memory-card.revealed .memory-image {
             opacity: 1;
             transform: scale(1);
         }
-
         .memory-card.revealed .memory-cover {
             opacity: 0;
             transform: scale(1.08);
             pointer-events: none;
         }
-
         .memory-overlay {
             position: absolute;
             inset: 0;
             z-index: 2;
-            background: linear-gradient(to top,
-                    rgba(0, 0, 0, 0.85),
-                    transparent 55%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 55%);
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
         }
-
         .memory-card.revealed .memory-overlay {
             opacity: 1;
         }
-
         .memory-reveal-label {
             position: absolute;
             left: 18px;
@@ -201,17 +173,13 @@
             letter-spacing: 1px;
             opacity: 0;
             transform: translateY(8px);
-            transition:
-                opacity 0.4s ease,
-                transform 0.4s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             pointer-events: none;
         }
-
         .memory-card.revealed .memory-reveal-label {
             opacity: 1;
             transform: translateY(0);
         }
-
         .memory-play-icon {
             position: absolute;
             top: 15px;
@@ -228,58 +196,128 @@
             font-size: 15px;
             opacity: 0;
             transform: scale(0.8);
-            transition:
-                opacity 0.4s ease,
-                transform 0.4s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
-
         .memory-card.revealed .memory-play-icon {
             opacity: 1;
             transform: scale(1);
         }
-
         .memory-card.revealed:hover .memory-play-icon {
             transform: scale(1.12);
         }
-
         @media (max-width: 1024px) {
             .memory-card {
                 height: 360px;
             }
         }
-
-        @media (max-width: 767px) {
-            .memory-card {
-                height: 320px;
-            }
-
-            .memory-hover-text {
-                font-size: 15px;
-            }
-
-            .memory-reveal-label {
-                font-size: 12px;
-            }
+       @media (max-width: 767px) {
+    .memory-card {
+        height: 380px;
+    }
+    .memory-image {
+        object-fit: contain;
+    }
+    .memory-reveal-label {
+        font-size: 12px;
+    }
+}
+        .memory-hover-text {
+            font-size: 15px;
         }
+
+        .memory-reveal-label {
+            font-size: 12px;
+        }
+        #heart-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+        }
+        #particle-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .close-particle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10001;
+            background: #E50914;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .close-particle-btn:hover {
+            background: #b20710;
+            transform: scale(1.05);
+        }
+       #final-message {
+    position: relative;
+    z-index: 10002;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(35px) scale(0.88);
+    filter: blur(12px);
+    transition:
+        opacity 1.4s cubic-bezier(.22, 1, .36, 1),
+        transform 1.4s cubic-bezier(.22, 1, .36, 1),
+        filter 1.4s ease;
+    pointer-events: none;
+    padding: 20px;
+}
+
+#final-message.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+.big-heart {
+    font-size: clamp(120px, 25vw, 280px);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 5px #E50914;
+    text-shadow:
+        0 0 15px rgba(229, 9, 20, 0.8),
+        0 0 40px rgba(229, 9, 20, 0.6),
+        0 0 80px rgba(229, 9, 20, 0.4);
+    animation: heartPulse 1.5s ease-in-out infinite alternate;
+}
+#final-message h1 {
+    margin-top: 20px;
+    color: white;
+    font-size: clamp(1.8rem, 5vw, 4rem);
+    font-weight: 900;
+    text-shadow: 0 0 20px rgba(229, 9, 20, 0.8);
+}
+@keyframes heartPulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.08);
+    }}
     </style>
 </head>
-
 <body class="bg-netflixDark text-white overflow-x-hidden selection:bg-netflixRed selection:text-white">
-
-    <!-- LOGIN SCREEN -->
     <div id="login-screen"
         class="fixed inset-0 bg-[#0d0912] z-[3000] flex flex-col justify-between py-6 px-6 md:px-12 transition-opacity duration-700 overflow-hidden">
-
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
-
             <div
                 class="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-pink-950/40 via-rose-900/20 to-transparent blur-[120px] animate-pulseGlow">
             </div>
-
             <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tl from-netflixRed/20 via-purple-950/30 to-transparent blur-[140px] animate-pulseGlow"
-                style="animation-delay:2s;">
-            </div>
-
+                style="animation-delay:2s;"></div>
             <div class="absolute top-[15%] left-[10%] text-rose-500/30 text-2xl animate-floatSlow">❤️</div>
             <div class="absolute top-[25%] right-[15%] text-pink-400/20 text-3xl animate-floatSlow"
                 style="animation-delay:1.5s;">✨</div>
@@ -291,249 +329,119 @@
                 style="animation-delay:3s;">✨</div>
             <div class="absolute top-[60%] right-[8%] text-rose-500/25 text-2xl animate-floatSlow"
                 style="animation-delay:.8s;">❤️</div>
-
             <div
                 class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#0d0912]/80 to-[#0d0912]">
             </div>
         </div>
-
         <div class="relative z-10 flex items-center justify-between">
-            <div class="text-netflixRed text-[clamp(22px,4vw,32px)] font-black tracking-[3px]">
-                THE STORY I NEVER TOLD
+            <div class="text-netflixRed text-[clamp(22px,4vw,32px)] font-black tracking-[3px]">THE STORY I NEVER TOLD
             </div>
         </div>
-
         <div class="flex flex-col items-center justify-center flex-grow text-center px-4 relative z-10 my-auto">
-
-            <h1 class="text-[clamp(2rem,4.5vw,3.2rem)] font-light tracking-wide mb-3 text-gray-100">
-                Who's watching?
+            <h1 class="text-[clamp(2rem,4.5vw,3.2rem)] font-light tracking-wide mb-3 text-gray-100"> Who's watching?
             </h1>
-
             <div id="profiles-grid" class="flex gap-[30px] justify-center flex-wrap"></div>
-
         </div>
-
-        <div class="relative z-10 text-center text-xs text-gray-500 tracking-widest uppercase">
-            Made with all my heart &hearts;
-        </div>
-
+        <div class="relative z-10 text-center text-xs text-gray-500 tracking-widest uppercase"> Made with all my heart
+            &hearts; </div>
     </div>
-
-
-    <!-- MAIN CONTENT -->
     <div id="main-content" class="hidden opacity-0 transition-opacity duration-700">
-
-        <header
-            class="flex justify-between items-center py-4 px-6 md:py-5 md:px-[60px] bg-gradient-to-b from-black/90 to-transparent fixed top-0 w-full z-[100]">
-
-            <div class="text-netflixRed text-[26px] font-black tracking-[2px]">
-                JUST FOR YOU ❤️
-            </div>
-
-        </header>
-
-
-        <!-- HERO -->
         <div id="hero-banner"
             class="h-[85vh] bg-gradient-to-t from-netflixDark via-netflixDark/30 to-transparent bg-cover bg-center flex flex-col justify-end pb-[60px] px-6 md:pb-20 md:px-[60px]">
-
             <div class="max-w-[700px]">
-
                 <h1 id="hero-title"
                     class="text-[clamp(2.5rem,6vw,4rem)] font-extrabold mb-3 [text-shadow:_2px_4px_10px_rgba(0,0,0,0.9)]">
                 </h1>
-
                 <p id="hero-desc"
                     class="text-[clamp(1rem,2vw,1.2rem)] mb-5 leading-relaxed text-[#e5e5e5] [text-shadow:_1px_2px_5px_rgba(0,0,0,0.9)]">
                 </p>
-
                 <button onclick="startExperience()"
                     class="px-7 py-3 text-[clamp(1rem,2vw,1.15rem)] font-bold rounded-md cursor-pointer inline-flex items-center justify-center gap-2.5 transition-all duration-300 bg-white text-black hover:bg-white/80 hover:scale-[1.03]">
-                    LET ME SHOW YOU
-                </button>
-
+                    LET ME SHOW YOU </button>
             </div>
-
         </div>
-
-
-        <!-- MOMENTS -->
         <div id="section-moments" class="hidden py-8 px-6 md:py-10 md:px-[60px]">
-
-            <h2 class="text-[clamp(1.2rem,3vw,1.5rem)] mb-4 font-bold text-[#f1f1f1]">
-                A Story I Wanted You to See ✨
+            <h2 class="text-[clamp(1.2rem,3vw,1.5rem)] mb-4 font-bold text-[#f1f1f1]"> A Story I Wanted You to See ✨
             </h2>
-
             <div id="moments-container" class="flex gap-4 overflow-x-auto pb-4 scrollbar-thin"></div>
-
         </div>
-
-
-        <!-- MEMORIES -->
         <div id="memories-section" class="hidden py-8 px-6 md:py-10 md:px-[60px]">
-
-            <h2 class="text-[clamp(1.2rem,3vw,1.5rem)] mb-6 font-bold text-[#f1f1f1]">
-                A Collection of You ✨
-            </h2>
-
+            <h2 class="text-[clamp(1.2rem,3vw,1.5rem)] mb-6 font-bold text-[#f1f1f1]">A Collection of You ✨</h2>
             <div id="grid-3d-container"
-                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-7 py-2.5">
-            </div>
-
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-7 py-2.5"> </div>
             <div class="flex justify-center mt-10">
-
                 <button onclick="openProposalPage()"
                     class="px-8 py-4 text-[clamp(1rem,2vw,1.2rem)] font-bold border-2 border-netflixRed rounded-md cursor-pointer inline-flex items-center justify-center gap-2.5 transition-all duration-300 bg-netflixRed text-white hover:bg-red-700 hover:scale-[1.05] shadow-[0_5px_20px_rgba(229,9,20,0.5)]">
-                    Next ❤️
-                </button>
-
+                    Next ❤️</button>
             </div>
-
         </div>
-
     </div>
-
-
-    <!-- PROPOSAL PAGE -->
     <div id="proposal-page" class="hidden opacity-0 transition-opacity duration-700 min-h-screen bg-netflixDark">
-
         <div class="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-
             <div class="relative min-h-[300px] lg:min-h-screen bg-cover bg-[center_top]"
                 style="background-image:url('https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/773028258_1524526942265898_8282216162949087373_n.jpg?_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=wvK7BNgK9FkQ7kNvwEkRlth&_nc_oc=AdoxVBF1UNm6Gz4lpNUcqJ1EZ62yX9Mp039_Hh2NFsWZDxKhcUNF3hAVyUaqDwhJXHBvsPb9VQ80vWiBh2eEteWS&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7b6a8&oh=03_Q7cD6AE7cyq607mS1mx7phi0omKbgBGniTlzrkcvwf1KQJIHKA&oe=6AA60363');">
-
                 <div
                     class="absolute inset-0 bg-gradient-to-t from-netflixDark via-netflixDark/40 lg:bg-gradient-to-r lg:from-transparent lg:to-netflixDark">
                 </div>
-
             </div>
-
-            <div class="py-16 px-6 md:px-12 flex flex-col justify-center">
-
-                <div class="max-w-xl mx-auto w-full text-center lg:text-left">
-
-                    <h1 class="text-3xl md:text-5xl font-black text-netflixRed mb-4 tracking-wider">
-                        A MEMORY WAITING FOR US ❤️
-                    </h1>
-
-                    <p class="text-gray-300 text-base md:text-lg mb-8">
-                        I don't know what you think, and I don't even know what you will think after this. But I felt
-                        like I would regret it a lot if I didn't tell you. If you like me to, can we fill this empty
-                        photo with our picture?
-                    </p>
-
-                    <div class="mb-6">
-
-                        <h3 class="text-netflixRed font-bold text-lg mb-3 tracking-widest uppercase">
-                            W I L L
-                        </h3>
-
-                        <div id="grid-will" class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5"></div>
-
-                    </div>
-
-                    <div class="mb-6">
-
-                        <h3 class="text-netflixRed font-bold text-lg mb-3 tracking-widest uppercase">
-                            Y O U &nbsp; B E
-                        </h3>
-
-                        <div id="grid-yoube" class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-5"></div>
-
-                    </div>
-
-                    <div class="mb-12">
-
-                        <h3 class="text-netflixRed font-bold text-lg mb-3 tracking-widest uppercase">
-                            M I N E
-                        </h3>
-
-                        <div id="grid-mine" class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5"></div>
-
-                    </div>
-
-                    <div class="bg-[#1f1f1f] border border-netflixRed/50 p-8 rounded-xl shadow-2xl text-center">
-
-                        <h2 class="text-2xl md:text-3xl font-bold mb-4">
-                            The picture is waiting... Will you be in it with me?
-                        </h2>
-
-                        <p class="text-gray-400 mb-6 max-w-xl mx-auto">
-                            No skip buttons, no next episodes needed—just you and me, forever.<span class="text-red-800"> Sorry! For taking your photo without permission</span>
-                        </p>
-
-                        <div class="flex justify-center gap-6">
-
-                            <button onclick="handleYesClick()"
-                                class="bg-netflixRed text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-700 transition shadow-lg hover:scale-110">
-                                YES!💖
-                            </button>
-
-                            <button id="no-btn" onmouseover="moveNoButton()" onclick="handleNoClick()"
-                                class="bg-gray-700 text-gray-300 px-8 py-3 rounded-lg font-bold text-lg transition">
-                                No
-                            </button>
-
-                        </div>
-
-                        <div id="proposal-response" class="mt-6 text-xl font-bold text-netflixRed hidden"></div>
-
-                    </div>
-                    <div class="mt-8 bg-[#1f1f1f] border border-netflixRed/50 p-6 rounded-xl shadow-2xl">
-
-                        <h3 class="text-netflixRed font-bold text-lg mb-4 text-center">
-                            
-                        </h3>
-
-                        <div
-                            class="relative aspect-video rounded-lg overflow-hidden border border-netflixRed/30 shadow-lg">
-
-                            <video controls class="w-full  object-cover">
-
-                                <source src="https://www.image2url.com/r2/default/videos/1786869436303-dea6c314-527d-456b-8178-69576857b293.mp4">
-
-                            </video>
-
-                        </div>
-
-                    </div>
-
-                    <button onclick="backToMain()"
-                        class="mt-8 text-gray-400 hover:text-white underline text-sm block mx-auto lg:mx-0">
-                        &larr; Back
-                    </button>
-
-                </div>
-
-            </div>
-
+            <div class="py-12 px-4 sm:px-6 md:px-12 flex flex-col justify-center">
+    <div class="max-w-xl mx-auto w-full text-center lg:text-left">
+        <h1 class="text-2xl sm:text-3xl md:text-5xl font-black text-netflixRed mb-4 tracking-[0.15em] leading-tight">
+            A MEMORY WAITING FOR US ❤️
+        </h1>
+        <p class="text-gray-300 text-sm sm:text-base md:text-lg mb-8 leading-relaxed">
+            I don't know what you think, and I don't even know what you will think after this.
+            But I felt like I would regret it a lot if I didn't tell you.
+            If you like me to, can we fill this empty photo with our picture?
+        </p>
+        <div class="mb-7">
+            <h3 class="text-netflixRed font-bold text-base sm:text-lg mb-3 tracking-[0.45em]">W I L L</h3>
+            <div id="grid-will" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-md mx-auto lg:mx-0"></div>
         </div>
-
-    </div>
-    <div id="media-modal"
-        class="hidden fixed inset-0 bg-black/95 z-[5000] justify-center items-center flex-col p-5"
-        onclick="closeModal()">
-
-        <button onclick="closeModal()"
-            class="absolute top-4 right-6 text-[42px] text-white cursor-pointer z-[5001]">
-            &times;
+        <div class="mb-7">
+            <h3 class="text-netflixRed font-bold text-base sm:text-lg mb-3 tracking-[0.35em]">Y O U &nbsp; B E</h3>
+            <div id="grid-yoube" class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 max-w-md mx-auto lg:mx-0"></div>
+        </div>
+        <div class="mb-10">
+            <h3 class="text-netflixRed font-bold text-base sm:text-lg mb-3 tracking-[0.45em]">M I N E</h3>
+            <div id="grid-mine" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-md mx-auto lg:mx-0"></div>
+        </div>
+        <div class="bg-[#1f1f1f] border border-netflixRed/50 p-5 sm:p-6 md:p-8 rounded-xl shadow-2xl text-center">
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 leading-snug">
+                The picture is waiting... Will you be in it with me?
+            </h2>
+            <p class="text-gray-400 text-sm sm:text-base mb-6 leading-relaxed">
+                No skip buttons, no next episodes needed—just you and me, forever.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6">
+                <button onclick="handleYesClick()" class="w-full sm:w-auto bg-netflixRed text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-700 transition shadow-lg hover:scale-105">
+                    YES! 💖
+                </button>
+                <button id="no-btn" onmouseover="moveNoButton()" onclick="handleNoClick()" class="w-full sm:w-auto bg-gray-700 text-gray-300 px-8 py-3 rounded-lg font-bold text-lg transition">
+                    No
+                </button>
+            </div>
+            <div id="proposal-response" class="mt-6 text-base sm:text-xl font-bold text-netflixRed hidden"></div>
+        </div>
+        <button  onclick="startFinalAnimation()" class="mt-4 px-8 py-3 bg-netflixRed text-white rounded-lg font-bold text-lg hover:bg-red-700 transition shadow-[0_0_25px_rgba(229,9,20,0.5)] hover:scale-105 block mx-auto lg:mx-0">
+    FINAL ❤️
+</button>
+        <button onclick="backToMain()" class="mt-8 text-gray-400 hover:text-white underline text-sm block mx-auto lg:mx-0">
+            &larr; Back
         </button>
-
-        <div id="modal-content-container"
-            class="flex justify-center items-center w-full h-full"
-            onclick="event.stopPropagation()">
-        </div>
-
     </div>
-
-
+</div>
+        </div>
+    </div>
+    <div id="media-modal" class="hidden fixed inset-0 bg-black/95 z-[5000] justify-center items-center flex-col p-5"
+        onclick="closeModal()">
+        <button onclick="closeModal()" class="absolute top-4 right-6 text-[42px] text-white cursor-pointer z-[5001]">
+            &times; </button>
+        <div id="modal-content-container" class="flex justify-center items-center w-full h-full"
+            onclick="event.stopPropagation()"></div>
+    </div>
     <audio id="memory-song" preload="auto"></audio>
-
-
-    <script>
-
-        const siteData = {
-
+    <script>const siteData = {
             profiles: [
                 {
                     name: "You 💙",
@@ -543,44 +451,31 @@
             ],
             hero: {
                 title: "One thing I never told you",
-
-                description:
-                    "I have wanted to tell you this for a long time, but I was scared to say it. Still, I couldn't keep it to myself anymore, so I made this especially for you. Instead of saying it, I thought I'd show you.",
-
-                background:
-                    "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/773713644_1044949555132384_7281913695421611301_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=npMrF9EBfcIQ7kNvwFN5Csv&_nc_oc=AdrPmjA4elxDwHJFUZheRzBViVHLouydfEAIj939ycq7R3cLLQq2YiGMnx3l-8scrEH0RgEWawzIo0Sntgkb4p08&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7b6a8&oh=03_Q7cD6AFpmdSIYA9s2sQ5-7BfBK5xMT20nP5pRvgL2CzR5F8RMA&oe=6AA67CFB"
+                description: "I have wanted to tell you this for a long time, but I was scared to say it. Still, I couldn't keep it to myself anymore, so I made this especially for you. Instead of saying it, I thought I'd show you.",
+                background: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/773713644_1044949555132384_7281913695421611301_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=npMrF9EBfcIQ7kNvwFN5Csv&_nc_oc=AdrPmjA4elxDwHJFUZheRzBViVHLouydfEAIj939ycq7R3cLLQq2YiGMnx3l-8scrEH0RgEWawzIo0Sntgkb4p08&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7b6a8&oh=03_Q7cD6AFpmdSIYA9s2sQ5-7BfBK5xMT20nP5pRvgL2CzR5F8RMA&oe=6AA67CFB"
             },
-
             moments: [
-
                 {
                     type: "image",
-                    src:"https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/772772768_1487176956789053_6240239913733858868_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=UeFqyIIEas0Q7kNvwFusJeM&_nc_oc=AdrvTNrB8w_vJV0TS8DP0gufQ68iMuAmOkUoE-ShZstcgRMsTxcGFvnbqvLZx_wfMyK59x8dZm1WjIXpoN4ABFcf&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6AFnhUV0pcJl-zzyY3csGniWx8Gw4cqgUjbUifqsFWWlaw&oe=6AA8F183",
-              title: "When I First Saw You ✨"
+                    src: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/772772768_1487176956789053_6240239913733858868_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=UeFqyIIEas0Q7kNvwFusJeM&_nc_oc=AdrvTNrB8w_vJV0TS8DP0gufQ68iMuAmOkUoE-ShZstcgRMsTxcGFvnbqvLZx_wfMyK59x8dZm1WjIXpoN4ABFcf&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6AFnhUV0pcJl-zzyY3csGniWx8Gw4cqgUjbUifqsFWWlaw&oe=6AA8F183",
+                    title: "When I First Saw You ✨"
                 },
-
                 {
                     type: "image",
                     src: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/770984570_1769110427419467_6179972565951753946_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=t-1zb-ddsRUQ7kNvwFELlOt&_nc_oc=AdozYH41IrOCVlqmDaybV9NmpjwwMefS-ghj0Q8fvze2ExV9OfxqCMrrFvZuhZSV3tX6HsD2wi6IqXYlS7yJrzUN&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7b6a8&oh=03_Q7cD6AF7FXafONfxHhUuVI_UxxQ09qGw3RmqrJ5hgINQZmppzg&oe=6AA8D9FE",
                     title: "My Cutest Distraction 💕"
                 },
-
                 {
                     type: "image",
                     src: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/772602398_2778735632580509_7910721634655290356_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=VjSi029XCkMQ7kNvwHllTW2&_nc_oc=AdpC4IsznwTF4CjFCm7XcEpRvFf6JlUHwwWVnnprhoGdw1SjOknDvaEt_gtlTo82dCSMKpEs2oFy9BAOogUjt7TY&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6AHbBfbg8OxpUO6KrWMy6ks2HIr989X_Ze6s9kLcXq4_hw&oe=6AA8E476",
                     title: "Favourite Moment 😊"
                 },
-
                 {
                     type: "image",
                     src: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/771540037_2139601793263902_6737218881925387746_n.jpg?_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=FWW86PwlkOEQ7kNvwG3-fxz&_nc_oc=AdpQGV93S3yihdRULiPuflI9IODAaFe2xSO1fphs-lemqKy_YxRSUXvvcUZ4hBRdq5Z4ugRC3gvdsQDdOYDKqPy5&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6AHM2EMUBV-tsFnK2B6uI_8DyydjO1XxcQbpaWSd4mUpag&oe=6AA8DFA4",
                     title: "Our Last Meet 🥺"
                 }
-
             ],
-
-
-
             gridMemories: [
                 {
                     image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/772685132_1352047603578033_4944055277585734012_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=Ea8J5o_NEfIQ7kNvwHdxHbn&_nc_oc=AdreCdN96ktebczwNm2LBlVMP8QtEUA4GY-DSfvzxeP6Az1OOuz8Rblqploz4TeuR0WQBS5enhr9fc7wShj4wD05&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7a22e&oh=03_Q7cD6AF2FysWSl43pU76Nrpy9wd_p5OAIavz9ur_XXkngOrWzQ&oe=6AA63074",
@@ -605,944 +500,449 @@
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/774052193_2126520081233338_8206922919583579221_n.jpg?_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=aNCsuJahNhkQ7kNvwHbWzGL&_nc_oc=AdoogzgBBqBOpms_MPM4G-UxXoXwTOXLV-xAti9DtAGZJKt6MoUYkhhRUu0DmtAxsaJ-0LQKb4qfGwm--mL98sdU&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AEXxTkktty77dt4jWPnh2FlvRNw0j6GrBvq4me8QcEh9w&oe=6AA64924",
                     song: "song5.mp3",
-                    title: "A Precious Memory 💖"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/774184051_1373952024244701_6143965670915663430_n.jpg?_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=sC5s1LmsTAwQ7kNvwGM5wlp&_nc_oc=AdqO5cruERJQyJ1s3i9tQXfnxPhcD-bkxuWqoMwUWHvviF900hfRK9L5_gxo6WWwU1_upgY1c5S-NsMRNebamUXV&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7a22e&oh=03_Q7cD6AHVz8i3Trkf-ZAW_f65KwtHwqg0c-xAu7vro0jtXbJDog&oe=6AA6439B",
                     song: "song6.mp3",
-                    title: "Always special💕"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/773541339_1756812268766167_3609813545778028157_n.jpg?_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=pgksZWYLyJkQ7kNvwEBaEtT&_nc_oc=AdpjaRlJq3qAmMDKhwoo9xtHZ0IZJISl8IHahIUvqLQ-z6Dri32UTxKv5KJP0hg7Z0QL9B_WdJUkXtnPvqoht26W&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AH41dLreXsvPC3cABbs5VHHAFXiDzHOlBARweHgnLyakw&oe=6AA64359",
                     song: "song7.mp3",
-                    title: "Quietly Special🌸"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/774033236_1105208105790944_6417792225721342925_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=w_ftE2FGsd0Q7kNvwGDuvOh&_nc_oc=AdobtmsalXD8JzRK2M8B3HXYox-lSWab6l8SIPZ7WuGw_Ju4tRemUmCp4i4_PTtHcK0b8EGS_CjXrivn0S9ry7Is&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7a22e&oh=03_Q7cD6AGRxttOMZyr-qjkl1by4RS76JH7d6nWosLauuQ6shSKUg&oe=6AA61D43",
                     song: "song8.mp3",
-                    title: "Secretly admired ✨"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/773091866_28447161338255810_7699904967512652287_n.jpg?_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=1JT1-2jrM8gQ7kNvwHt-Vdh&_nc_oc=Adq9qK_Ue-fvsWtV5j1TgiP8HCh0mrIHIro9J9ZkidQNQ3_KOCHCUgnUJQ-pq_uZokHBnH2DYLiYNgAqvdtg9OJt&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7a22e&oh=03_Q7cD6AHuE1uwHtV5o_vf8x5GcjpqNDDVlpt9BACzbtRq5-x-EQ&oe=6AA61722",
                     song: "song9.mp3",
-                    title: "Charming 💗"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/774510375_2249125612530050_5516923934502373056_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=Acr_yoqJmRgQ7kNvwHMGvpE&_nc_oc=AdoqPcWQoUtKdWrGqCxnSMuOIHXVyPBRck1UgFLDWpbH0afiktQb6BAqqS953AUstC5k-m-28lSFNqOpn7ENR4TN&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AGfCYDaMPVWzyHH_44yTRxTBIafQncUMxYKbK8OzlkbaA&oe=6AA62165",
                     song: "song10.mp3",
-                    title: "Lovely ❤️"
+                    title: ""
                 },
                 {
-                    image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/772481459_1679093536519521_2611803442611560499_n.jpg?_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=zmSouAR6KDsQ7kNvwH2-zmW&_nc_oc=Adp3bo8N3WKlr9qQes_TpqeTwWprU7atJ24GrHED9G_j5XhGH9ny2lPWaOvmRAzfF9qteX0HQBBO-6NyY0JYQXiH&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AFmNexXbpnzXRCqmVHTaJRozHG1z5QvX56SMrzLXHvyUA&oe=6AA640E6",
+                    image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/798133549_1056924897227955_3762975556639899958_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=EmIlLoG1YZwQ7kNvwEt9ak1&_nc_oc=AdqsIHqAlObkGaCMj17LuO_GxYWyaWl1W5YgFB6xpf0Zrs-mPyNFQu3JLPSxlhh2Jn2hWvw0CeGzjTrnkyelpO7S&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7b6a8&oh=03_Q7cD6QE1DErH6lygTn_qlftjAbc0ReX1iygczic08ncj4YLPYQ&oe=6AC5C22E",
                     song: "song11.mp3",
-                    title: "Cute💕"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/774172612_1580017733593937_1540267092109379017_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=oYU5vtq4gJsQ7kNvwFvACiu&_nc_oc=AdqPgYPeoKd3MdxvdY3pL17cuFZnGJYEkzDN_5IRfQwOcxKeUuvwrZMZrIpo5iGjkN6kL2i6TbysH00g9J-3c_fH&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7a22e&oh=03_Q7cD6AHTcWNk-Fq8mqqxAr220JrvZGRTmGiQfLNUmmh7sSjvVw&oe=6AA62CE2",
                     song: "song12.mp3",
-                    title: "Silent Attraction💖"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-4.fna.fbcdn.net/v/t1.15752-9/773338775_1389329933147337_6135888627484870788_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=WJMMMLqpvcQQ7kNvwEh-cj9&_nc_oc=AdomRfge4j224BVSZhd7s49zCubdMs-n1BRmRzxAfhXh16mzzOcuO0FKW8eca_ivHlFhVnWtMoXwGLTXqtSUI8_8&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-4.fna&_nc_ss=7a22e&oh=03_Q7cD6AHVFALeKtjIZriH1QD_cIy1lon7V-nC71X2U_W7Eu313Q&oe=6AA611D4",
                     song: "song13.mp3",
-                    title: "My Addiction✨"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/772602398_1558879689308595_3280037393637195486_n.jpg?_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=gUcO_qvJoC8Q7kNvwGOAmmn&_nc_oc=AdoQ4BVbtgsKxXVR6AUoG_iKrRJac7XB4RCQFVSMBmb3YeqZw1DWxbNlx8dw4ZSlr7lEM1ciPegNWLWsc91NhpOR&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7a22e&oh=03_Q7cD6AEpsF6RSz6Jqdw4QTAASxjfAs6YnFLCA8eFD_g7BSGbDg&oe=6AA62F56",
                     song: "song14.mp3",
-                    title: "My Weakness🌎"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-4.fna.fbcdn.net/v/t1.15752-9/772465754_1067615022455058_8280403455148322014_n.jpg?_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=4nR0DUb239QQ7kNvwEYYUXl&_nc_oc=AdpGlkrejNR_wM4C_6FBAeVariAIHQ93mmAZARYwM_o7WHGLWpcLW1RBw__EuCPPRl4AV_USUkyDUVaaP7z_IHZI&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-4.fna&_nc_ss=7a22e&oh=03_Q7cD6AFcG89mW7UDwlDZGp264wZ7BXjEpHhZw8ENQMxmVSfFVQ&oe=6AA62753",
                     song: "song15.mp3",
-                    title: "Little Obsession ❤️"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/773995289_1082855597530552_6149092651228867596_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=3TzO5FAg4IAQ7kNvwGVX5gn&_nc_oc=AdohMV63X9o0Dwepu2VQrw65zcXvPOuNkw8hkr7QIwSleb5FBRV2cUHSbQigUYXFI3e7xNsVCYrdsJvUg3s8I4QX&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AEbwkdyXUcffynFFl73pD7akQ92QzJfV3kQEevv5yghnw&oe=6AA63502",
                     song: "song16.mp3",
-                    title: "Festive Charm❤️"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/767673968_1622658649214687_6482605145078554545_n.jpg?_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=w6Ma8PbNy_sQ7kNvwE6Y7N5&_nc_oc=AdphLEZmABskYjN95mbAKBew06_znnSHm1AGWlpy3pSRSnT6erWYRnUrsS4P3udSvJ9vba3VKaqQmcrfV1V9FUt5&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6AGHVnsFVEcY4esmwSLZxCSu382ibURzE3WD2-2DWS8NxQ&oe=6AA605C5",
                     song: "song17.mp3",
-                    title: "Constant Thought💕"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-4.fna.fbcdn.net/v/t1.15752-9/772465754_1608888567459626_7260718385070713425_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=a7zkwRZ6lTMQ7kNvwH7ZHIV&_nc_oc=Adp_sry55pty7hGi0F5mMTOTf2H4yltM7Fkn9CezWKNLwI3k0obDftbBi5v5stqGv5Y07mjyuqr4qSVCODBYghf0&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-4.fna&_nc_ss=7a22e&oh=03_Q7cD6AHUSFiP7M23SN8qnxRwKvlxX3gFhQ4w6qYlp0Ir8vZ-fw&oe=6AA61716",
                     song: "song18.mp3",
-                    title: "Forever ✨"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/773290712_1055711884111943_4603534118664711295_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=86TaIo0aGXQQ7kNvwHAtEOX&_nc_oc=AdoVAedAYc5Rks1P0upUbfWR8LSW10101QxnhIDWqNIqdyfh7ulPrUcjCE6uqrSLB-JXgZ1-UXkxXcqgv6j5P62U&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7a22e&oh=03_Q7cD6AGR7UHY8oFujocfhY_BH4cTmbhUmj0HD4dbLsm8k6M-gg&oe=6AA64578",
                     song: "song19.mp3",
-                    title: "Traditional Charm💗"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/774069077_948021184975676_5801302727835445342_n.jpg?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=OATcNgE5b5wQ7kNvwGqW2A5&_nc_oc=Adqoo5YcO3H2gjQlAOtj2h8q61uOSjWftWpm4nycFDLOInTUF-aAVaVsrDHpi-94RsVLvtKp9kemDqJiPsdpM-QC&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7a22e&oh=03_Q7cD6AHWfUu_D0LLPh9S33sEZqMBMGU3ODKVSyRe-MHxK_uOGw&oe=6AA62037",
                     song: "song20.mp3",
-                    title: "Forever Admired❤️"
+                    title: ""
                 },
                 {
-                    image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/772663511_2270302180392246_6655119749789356959_n.jpg?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=ImLOz3JIQjcQ7kNvwHn4RRV&_nc_oc=Adoqncd9kM2MKIE3eAwFfSRWWLZV8meOCUaz8BimY3essPysrPB7DG4qaSRRZWrnaKwte5ECsfmt4ZyEYED0nM8f&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7a22e&oh=03_Q7cD6AGA7xGwOf1Nl8Up4MGgw0ovNHkfsLu0r88nWIKX9-e4pg&oe=6AA663BB",
+                    image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/795383495_1756296032324187_5433842237646817418_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=7xS3K_9lQdAQ7kNvwG4pQcU&_nc_oc=AdpoMbTvHPW3OnPJniyfnuscHBfeGEKd7sVIdBkcFCn3wgL_HO2W3aQ_gGhJEnv2ekOqK0PyLSP6Z4DP4eJi9B_e&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6QHz0FEIzfsXE4z8fQ8teMTQ0-XaoBFEuW0VK4XyykON9g&oe=6AC5EC75",
                     song: "song21.mp3",
-                    title: "Sweet 💕"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/773957677_2938088693252972_5482027238782433847_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=b9np4EKAc5wQ7kNvwGVurCu&_nc_oc=Adp7eEDQ3cXR_eXsdt4Yivr0R1Q5Fj-qFzlv5BIOA1rl_ed0a66E2sunTRO-llhJob7a4faJ1Y6DAnBB7CA_tjJq&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7a22e&oh=03_Q7cD6AHcWJsW3ThM5IgfcEqViO9rHMKUBthNdv-qBowcfQRPdA&oe=6AA64612",
                     song: "song22.mp3",
-                    title: "Our Favorite Memory 🌷"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-4.fna.fbcdn.net/v/t1.15752-9/773270762_1068002858960810_1114279528475630789_n.jpg?_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=ulnuT5iwMkAQ7kNvwHWhzak&_nc_oc=AdrKndL7_KWrZB-ZXLd7x1m9nGU6S3cJTbyUQA67lWXPiu79vdDG5rRHrrHHTLkI60Sy6byuCb0Bkrcf9pBDvxUC&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-4.fna&_nc_ss=7a22e&oh=03_Q7cD6AENMJUZiNGHkRyHR_HBif7A_I9GrBNaduO-2QBUyzpeoQ&oe=6AA655A9",
                     song: "song23.mp3",
-                    title: "A Day To Remember 💖"
+                    title: ""
                 },
                 {
-                    image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/773091866_1039001515553820_8410366701881715083_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=570B03LPnHsQ7kNvwFX4175&_nc_oc=AdqsjXqYHas70s_WywoyxQ6ZP4HYXokl10x_qPKCnUp2iA2HSSrcFwS94bu7YTLPCREPuzpELc-vXi5HyPQkDOjc&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7a22e&oh=03_Q7cD6AG21eiTRlwYRzstFl2NkvPeAUVlw4SVSJ2-3VgLoOgdEg&oe=6AA65622",
+                    image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/798537231_2107286483211397_7913374375925898911_n.jpg?_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=rK7Oz9tJLl4Q7kNvwGpKIt9&_nc_oc=AdrwjJwOrco2p4gotR1xrhHQURgOQ6p9RoHXdmKjm3PF-OVA8hNQmCYtxGpZXzossnppI4z-ktRneUzYE6hf-8r2&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6QEqkSa1fb8Y9YaeAYvUlx2CGCeCW7MIKqJLLoPmckW2NQ&oe=6AC5EBF6",
+
                     song: "song24.mp3",
-                    title: "Forever In My Heart ❤️"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/774052193_1531644051576482_4897777246859333113_n.jpg?_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=uvPAWC4W1VkQ7kNvwHHrYJA&_nc_oc=AdrCZpHkIuGADM38UT5paixTtAQeKl402HWVE3JP6sY2SILptX_pTV_dukNfHR-X8knzki4yeiXZAei5srQAWk27&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7a22e&oh=03_Q7cD6AFqSrpHQp14T9qcVrjsZoQQT7YQPaPFCBkV0Z5lDDO4dw&oe=6AA62F35",
                     song: "song25.mp3",
-                    title: "Beautiful Memory ✨"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/774593075_1592726515586222_6868975983007701345_n.jpg?_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=Csz-vBBGqeoQ7kNvwGWWXz-&_nc_oc=Adq_u_ntqszIedI6A37uUQJTV538sNobe2cBUkW0LLcot7BNj9lWkDnLnVdM3kjaBgD-rihCEQoHBaMlAxNCH_bk&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7a22e&oh=03_Q7cD6AGo90PnCfW6d4ISb5pdMveK-xiS5q9jX5EXSzngSrBMQQ&oe=6AA65BFB",
                     song: "song26.mp3",
-                    title: "ALways Special💕"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/772559725_1454128353414976_5595314050025141152_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=aIiI3nKnwn0Q7kNvwGnScd2&_nc_oc=AdoRv0ZRAtjFVdMz8I2qmrzm4bFVaylzijs95ZeG0Npqs4oxUIW4iCW7exKL_IX1F2HnVviYuXdaKmDpgUxRlHci&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7a22e&oh=03_Q7cD6AH8_gNd9D7uVkD2v6X96AbkhgqceQ1zwEMo4I0xQGkvCQ&oe=6AA626C7",
                     song: "song27.mp3",
-                    title: "Secret Charm❤️"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/774018188_1373318761620672_1578714964927545668_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=IR5AQmoAAS8Q7kNvwGZvMlV&_nc_oc=AdqqJ_JEpytmq2CC39MbTA4lmMOgZi1bJhFKxjMSZRs1OUCLUsdED37JGeLw1FbVv8f2vP0TOXLgx4YJqfbZ1Xvh&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7b6a8&oh=03_Q7cD6AEVqT2PwPRN2u9BLLn74CW8K0Z6-t9Hw4wN5kXp6PijRg&oe=6AA64521",
                     song: "song28.mp3",
-                    title: "My favourite view🌸"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/751134529_1013776148097180_2675330490891703089_n.jpg?_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=c4_n2ycBZtIQ7kNvwGUCIXC&_nc_oc=AdoNFHnAKlwxDLvsxKoBYKSk3NVXVX8cNbU9Jg4B1c_eSMVZIm4Raysxb8U9EwCm6Su1lj2RXfYdlru2K_JKQM1i&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7b6a8&oh=03_Q7cD6AHZVlTKmjMvlH0wvzDDbxNxSIfo0Vi1AwFL_ax50k67Cw&oe=6AA65B4C",
                     song: "song29.mp3",
-                    title: "Quiet Crush💗"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/748242919_2118632492389887_4569505301725791979_n.jpg?_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=7U6OXgH-sysQ7kNvwE3-K7s&_nc_oc=AdrPEtihfpus3liYJcyaliNVtD12JZd-v0VxTAgvkbLEFVOz1Cob4o0B5dOUK3KQJfxGZNmsvAanuRZjty4C5gNX&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7b6a8&oh=03_Q7cD6AGM42MCN5Lo48YSSviRZhrWyNu2II5teZWSdhAxPkUxDg&oe=6AA67A4B",
                     song: "song30.mp3",
-                    title: "Pure Admiration ❤️"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-2.fna.fbcdn.net/v/t1.15752-9/748811209_28458607750408461_7551791231033500484_n.jpg?_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=kN5DZffO0CgQ7kNvwEsEn4a&_nc_oc=AdoMAvDKCvaTfGDKWwYfOvGZi2ojVEgx32MMr3oUKber1Y27uxs2gLOjVpAjN5XpIkJp16rUh6W_ys_mTEHKRH6m&_nc_zt=23&_nc_ht=scontent.fcjb3-2.fna&_nc_ss=7b6a8&oh=03_Q7cD6AH8t9gS9L1TLGaGzpki2OspifjqoFKL9zxsBdRYWctxFQ&oe=6AA658F5",
                     song: "song31.mp3",
-                    title: "My Distraction✨"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/771677329_934782779660038_2833967918973549756_n.png?_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=9LEDLkKXv08Q7kNvwGDGNt5&_nc_oc=Adp1WaJgelUcxsl9PnX9MbNaAeirCaLNnPyYa_MEBriTznYzsFnmANmfb9K-2D8aBGEU1k2eV4VuGoi26ibeStN1&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7a22e&oh=03_Q7cD6AHUF761SYDZrqbOjxwhgfTRTWMfZFoXkNq0JDv6zw6gYg&oe=6AA653AD",
                     song: "song32.mp3",
-                    title: "Forever Memories 💕"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/770669042_4545516029060523_8815288735170436151_n.png?_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=58lUCpb0BhIQ7kNvwGHzl70&_nc_oc=Ado3nuSXb1Z1ToCvTPH9Slj-9Z27qSB1-79l3o3Yds8rOU7nyCYIuWgKBtxV0i4wE4yF7nQZXyaBw87RXK7RbpIY&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AH-EDTkju77fuWWxQco9SqId3dgDbbQGdFqT3wd9wixQg&oe=6AA64FE1",
                     song: "song33.mp3",
-                    title: "Eye Catcher ❤️"
+                    title: ""
                 },
                 {
                     image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/775127047_2243394673148113_5166310765626508016_n.png?_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=6gQpRqwlIlEQ7kNvwGmfp1P&_nc_oc=Adrn4ScbxhQCdiwADJVhzodrT9Vw7JJMfmfqkImiwXTvHq8-ahcE0auBUKYuxu4EKJVnkgL3vzzeEC3x35W5lloc&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7a22e&oh=03_Q7cD6AG0l4b2rv7eWSUijOYLRfFbP96crVQhYUAIwMOvlBvsoA&oe=6AA675A8",
                     song: "song34.mp3",
-                    title: "Just Perfect ✨"
+                    title: ""
                 },
                 {
-                    image: "https://scontent.fcjb3-4.fna.fbcdn.net/v/t1.15752-9/773091864_2022843408436722_2788474696630841994_n.png?_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=gUSuDo9iWGYQ7kNvwHgctzS&_nc_oc=AdpZg01dN1zfJ1rlJyfIAZLQT8dGaw64b8BFDK712jZReFm7Y01LUpexg5_u8g42lRusyvukmgFTapAkF-wUPcZY&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-4.fna&_nc_ss=7a22e&oh=03_Q7cD6AFnYtI0z-Jwcu8TxpY-Bzlx3dp2pMeUaOPS9HlQkmlymg&oe=6AA66173",
+                    image: "https://scontent.fcjb3-3.fna.fbcdn.net/v/t1.15752-9/793852312_1429619112388638_2369550442876160667_n.jpg?_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=mgYrku0N4HsQ7kNvwGOsFsc&_nc_oc=AdoB6Q4F057Twu_39BB5EJ9Sd36yrAYUQbBz1hYeY3BIlv4uCQG8bsIKu2PjZMN8GiEr7PK8Bs8ue0c5suwB0_KN&_nc_zt=23&_nc_ht=scontent.fcjb3-3.fna&_nc_ss=7b6a8&oh=03_Q7cD6QEpdDbau8KBGKlbJyMJOwyv2P4S775eSBhF89IIB6Hb7A&oe=6AC5B9F8",
                     song: "song35.mp3",
-                    title: "Soft smile❤️"
+                    title: ""
                 },
                 {
-                    image: "https://scontent.fcjb3-5.fna.fbcdn.net/v/t1.15752-9/771997467_4356591927927562_2445227340041908430_n.png?_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=9f807c&_nc_ohc=nVU1ubCAKyAQ7kNvwFCveI9&_nc_oc=AdopKhHMfszizvZoJgp57ZM7tJZJ5mjkMFyf5dxwzPUr2_YpWSUoT-jxwK3F0JhxDRlcSropTIdyc2rLcw4Lmjpr&_nc_ad=z-m&_nc_cid=1174&_nc_zt=23&_nc_ht=scontent.fcjb3-5.fna&_nc_ss=7a22e&oh=03_Q7cD6AG9XCoWah465WKoYVnR1cV7bCcQ77r9BIM90e8Hs6F5tg&oe=6AA66CDD",
+                    image: "https://scontent.fcjb3-1.fna.fbcdn.net/v/t1.15752-9/795066728_28388878447412397_4725020707504240715_n.jpg?_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=fc17b8&_nc_ohc=01gSH88dX7gQ7kNvwGfsZZB&_nc_oc=Ado3wvu1XPOMLciRI3-Q6fD_3YpuH2FFZIcl2xStw1xWgzKHDdVK4n7xsTWcPTkHiHAKrNoAB7QiWkzXkEx99sBr&_nc_zt=23&_nc_ht=scontent.fcjb3-1.fna&_nc_ss=7b6a8&oh=03_Q7cD6QG46v_pdbJGM2s8OVJhNV2pCODI-w23jt3LQKx2bFpJeQ&oe=6AC5EEFC",
                     song: "song36.mp3",
-                    title: "Always Lovely 💖"
-                }
-            ],
-
-
+                    title: ""
+                }],
             willPhotos: [null, null, null, null],
             willLetters: ["W", "I", "L", "L"],
-
             youbePhotos: [null, null, null, null, null],
             youbeLetters: ["Y", "O", "U", "B", "E"],
-
             minePhotos: [null, null, null, null],
             mineLetters: ["M", "I", "N", "E"]
         };
-
-
         let currentMemoryCard = null;
-
-
-
         window.addEventListener("DOMContentLoaded", () => {
-
             renderProfiles();
             renderHero();
             renderMoments();
             renderGridMemories();
             renderProposalGrids();
-
         });
-
-
-        /* =========================
-           PROFILES
-        ========================== */
-
         function renderProfiles() {
-
             const container = document.getElementById("profiles-grid");
-
             container.innerHTML = siteData.profiles.map(profile => `
-
-                <div
-                    class="group cursor-pointer text-center transition-transform duration-300 hover:scale-105 active:scale-105"
-                    onclick="enterWebsite()"
-                >
-
-                    <div
-                        class="w-[clamp(110px,25vw,140px)]
-                        h-[clamp(110px,25vw,140px)]
-                        rounded-xl
-                        border-[3px]
-                        border-netflixGray/40
-                        group-hover:border-white
-                        overflow-hidden
-                        mb-3
-                        shadow-[0_10px_30px_rgba(0,0,0,0.8)]
-                        transition-all
-                        bg-neutral-900"
-                    >
-
-                        <img
-                            src="${profile.avatar}"
-                            alt="Profile"
-                            class="w-full h-full object-cover"
-                        >
-
+                <div class="group cursor-pointer text-center transition-transform duration-300 hover:scale-105 active:scale-105" onclick="enterWebsite()">
+                    <div class="w-[clamp(110px,25vw,140px)] h-[clamp(110px,25vw,140px)] rounded-xl  border-[3px] border-netflixGray/40 group-hover:border-white  overflow-hidden mb-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all bg-neutral-900" >
+                        <img src="${profile.avatar}"  alt="Profile" class="w-full h-full object-cover" >
                     </div>
-
-                    <div
-                        class="text-[clamp(0.95rem,2vw,1.2rem)]
-                        text-netflixGray
-                        font-medium
-                        group-hover:text-white
-                        group-hover:font-bold
-                        transition-colors"
-                    >
-                        ${profile.name}
-                    </div>
-
-                </div>
-
-            `).join("");
+                    <div class="text-[clamp(0.95rem,2vw,1.2rem)] text-netflixGray font-medium group-hover:text-white group-hover:font-bold transition-colors" > ${profile.name} </div>
+                </div>  `).join("");
         }
-
-
-        /* =========================
-           HERO
-        ========================== */
-
         function renderHero() {
-
             const heroBanner = document.getElementById("hero-banner");
-
-            heroBanner.style.backgroundImage =
-                `linear-gradient(to top,#141414 10%,rgba(20,20,20,.3),transparent),url('${siteData.hero.background}')`;
-
-            document.getElementById("hero-title").innerText =
-                siteData.hero.title;
-
-            document.getElementById("hero-desc").innerText =
-                siteData.hero.description;
+            heroBanner.style.backgroundImage = `linear-gradient(to top,#141414 10%,rgba(20,20,20,.3),transparent),url('${siteData.hero.background}')`;
+            document.getElementById("hero-title").innerText = siteData.hero.title;
+            document.getElementById("hero-desc").innerText = siteData.hero.description;
         }
-
-
-       
-
         function renderMoments() {
-
-            const container =
-                document.getElementById("moments-container");
-
+            const container = document.getElementById("moments-container");
             container.innerHTML = siteData.moments.map(item => `
-
-                <div
-                    class="
-                        min-w-[240px]
-                        md:min-w-[280px]
-                        h-[160px]
-                        md:h-[180px]
-                        bg-[#222]
-                        rounded-md
-                        overflow-hidden
-                        shrink-0
-                        relative
-                        cursor-pointer
-                        transition-transform
-                        duration-300
-                        hover:scale-105
-                        hover:z-50
-                        hover:shadow-[0_10px_25px_rgba(229,9,20,0.4)]
-                        shadow-[0_4px_10px_rgba(0,0,0,0.5)]
-                    "
-                    onclick="openImageModal('${item.src}')"
-                >
-
-                    <img
-                        src="${item.src}"
-                        alt="${item.title}"
-                        class="w-full h-full object-cover"
-                        loading="lazy"
-                    >
-
+                <div class=" min-w-[240px] md:min-w-[280px] h-[160px] md:h-[180px] bg-[#222] rounded-md overflow-hidden shrink-0 relative cursor-pointer transition-transform duration-300 hover:scale-105  hover:z-50  hover:shadow-[0_10px_25px_rgba(229,9,20,0.4)]  shadow-[0_4px_10px_rgba(0,0,0,0.5)] " onclick="openImageModal('${item.src}')">
+                    <img src="${item.src}"  alt="${item.title}" class="w-full h-full object-cover" loading="lazy">
                     <!-- TITLE -->
-                    <div
-                        class="
-                            absolute
-                            bottom-0
-                            left-0
-                            w-full
-                            p-3
-                            bg-gradient-to-t
-                            from-black/95
-                            via-black/60
-                            to-transparent
-                            text-white
-                            text-[0.9rem]
-                            font-semibold
-                            z-[2]
-                        "
-                    >
-                        ${item.title}
+                    <div class="absolute bottom-0 left-0 w-full p-3 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white text-[0.9rem] font-semibold z-[2]"> ${item.title}
                     </div>
-
-                </div>
-
-            `).join("");
+                </div> `).join("");
         }
-
-
-        /* =========================
-           MEMORY GRID
-        ========================== */
-
         function renderGridMemories() {
-
-            const container =
-                document.getElementById("grid-3d-container");
-
+            const container = document.getElementById("grid-3d-container");
             container.innerHTML = siteData.gridMemories.map((memory, index) => `
-
-                <div
-                    class="memory-card"
-                    data-index="${index}"
-                    onclick="revealMemory(this, ${index})"
-                >
-
+                <div class="memory-card" data-index="${index}"  onclick="revealMemory(this, ${index})">
                     <div class="memory-cover">
-
                         <div class="memory-cover-content">
-
-                            <div class="memory-hover-text">
-                                 ❤️
-                            </div>
-
-                            <div class="memory-cover-hint">
-                                Click Here
-                            </div>
-
+                            <div class="memory-hover-text">❤️ </div>
+                            <div class="memory-cover-hint"> Click Here  </div>
                         </div>
-
                     </div>
-
-
-                    <img
-                        src="${memory.image}"
-                        alt="${memory.title}"
-                        class="memory-image"
-                        loading="lazy"
-                        onclick="handleMemoryImageClick(event, ${index})"
-                    >
-
-
+                    <img src="${memory.image}" alt="${memory.title}"class="memory-image" loading="lazy" onclick="handleMemoryImageClick(event, ${index})" >
                     <div class="memory-overlay"></div>
-
-
-                    <div class="memory-play-icon">
-                        ▶
-                    </div>
-
-
-                    <div class="memory-reveal-label">
-                        ${memory.title} ❤️
-                    </div>
-
-                </div>
-
-            `).join("");
+                    <div class="memory-play-icon"> ▶   </div>
+                    <div class="memory-reveal-label"> ${memory.title} ❤️  </div>
+                </div>  `).join("");
         }
-
-
         function revealMemory(card, index) {
-
             if (card.classList.contains("revealed")) {
-
-                openImageModal(
-                    siteData.gridMemories[index].image
-                );
-
+                openImageModal(siteData.gridMemories[index].image);
                 return;
             }
-
             if (currentMemoryCard) {
-
                 currentMemoryCard.classList.remove("revealed");
-
             }
-
             card.classList.add("revealed");
-
             currentMemoryCard = card;
-
             playMemorySong(index);
         }
-
-
         function handleMemoryImageClick(event, index) {
-
             event.stopPropagation();
-
-            openImageModal(
-                siteData.gridMemories[index].image
-            );
+            openImageModal(siteData.gridMemories[index].image);
         }
-
-
         function playMemorySong(index) {
-
-            const audio =
-                document.getElementById("memory-song");
-
-            const memory =
-                siteData.gridMemories[index];
-
+            const audio = document.getElementById("memory-song");
+            const memory = siteData.gridMemories[index];
             if (!memory || !memory.song) {
                 return;
             }
-
             audio.pause();
-
             audio.currentTime = 0;
-
             audio.src = memory.song;
-
             audio.load();
-
             audio.play().catch(() => { });
         }
-
-
         function stopMemorySong() {
-
-            const audio =
-                document.getElementById("memory-song");
-
+            const audio = document.getElementById("memory-song");
             audio.pause();
-
             audio.currentTime = 0;
         }
-
-
-        /* =========================
-           PROPOSAL GRIDS
-        ========================== */
-
         function renderProposalGrids() {
-
-            renderSubGrid(
-                "grid-will",
-                siteData.willPhotos,
-                siteData.willLetters,
-                "will"
-            );
-
-            renderSubGrid(
-                "grid-yoube",
-                siteData.youbePhotos,
-                siteData.youbeLetters,
-                "yoube"
-            );
-
-            renderSubGrid(
-                "grid-mine",
-                siteData.minePhotos,
-                siteData.mineLetters,
-                "mine"
-            );
+            renderSubGrid("grid-will", siteData.willPhotos, siteData.willLetters, "will");
+            renderSubGrid("grid-yoube", siteData.youbePhotos, siteData.youbeLetters, "yoube");
+            renderSubGrid("grid-mine", siteData.minePhotos, siteData.mineLetters, "mine");
         }
-
-
-        function renderSubGrid(
-            elementId,
-            photosArray,
-            lettersArray,
-            category
+        function renderSubGrid(elementId, photosArray, lettersArray, category
         ) {
-
-            const container =
-                document.getElementById(elementId);
-
-            container.innerHTML =
-                photosArray.map((photo, index) => {
-
-                    const letter =
-                        lettersArray[index];
-
-                    if (!photo) {
-
-                        return `
-
-                            <div
-                                class="
-                                    relative
-                                    aspect-square
-                                    bg-[#1a1a1a]
-                                    border-2
-                                    border-dashed
-                                    border-netflixRed/60
-                                    rounded-lg
-                                    overflow-hidden
-                                    group
-                                    cursor-pointer
-                                    hover:border-netflixRed
-                                    hover:bg-[#222]
-                                    transition-all
-                                    flex
-                                    flex-col
-                                    items-center
-                                    justify-center
-                                    p-2
-                                    text-center
-                                "
-                                onclick="changePhoto('${category}', ${index})"
-                            >
-
-                                <div
-                                    class="
-                                        absolute
-                                        top-2
-                                        left-2
-                                        w-7
-                                        h-7
-                                        bg-netflixRed
-                                        text-white
-                                        rounded-full
-                                        flex
-                                        items-center
-                                        justify-center
-                                        font-black
-                                        text-sm
-                                        shadow-md
-                                        z-10
-                                    "
-                                >
-                                    ${letter}
+            const container = document.getElementById(elementId);
+            container.innerHTML = photosArray.map((photo, index) => {
+                const letter = lettersArray[index];
+                if (!photo) {
+                    return ` <div class=" relative aspect-square bg-[#1a1a1a] border-2  border-dashed border-netflixRed/60  rounded-lg overflow-hidden group cursor-pointer hover:border-netflixRed  hover:bg-[#222] transition-all flex flex-col items-center justify-center p-2 text-center "onclick="changePhoto('${category}', ${index})">
+                                <div class=" absolute top-2 left-2 w-7 h-7 bg-netflixRed text-white  rounded-full flex items-center justify-center font-black text-sm shadow-md z-10"> ${letter}
                                 </div>
-
-                                <span class="text-2xl mb-1 group-hover:scale-125 transition">
-                                    &#10133;
-                                </span>
-
-                                <span class="text-xs text-gray-400 group-hover:text-white font-medium">
-                                    Add
-                                </span>
-
+                                <span class="text-2xl mb-1 group-hover:scale-125 transition">  &#10133; </span>
+                                <span class="text-xs text-gray-400 group-hover:text-white font-medium">  Add </span>
+                            </div>  `;
+                }
+                return `
+                        <div class=" relative  aspect-square bg-[#222]  border-2 border-netflixRed rounded-lg overflow-hidden group cursor-pointer hover:scale-105  transition-all " onclick="changePhoto('${category}', ${index})">
+                            <div class="absolute top-2  left-2 w-7 h-7 bg-netflixRed text-white rounded-full  flex items-center justify-center  font-black text-sm shadow-md z-10  "> ${letter}
                             </div>
-
-                        `;
-                    }
-
-
-                    return `
-
-                        <div
-                            class="
-                                relative
-                                aspect-square
-                                bg-[#222]
-                                border-2
-                                border-netflixRed
-                                rounded-lg
-                                overflow-hidden
-                                group
-                                cursor-pointer
-                                hover:scale-105
-                                transition-all
-                            "
-                            onclick="changePhoto('${category}', ${index})"
-                        >
-
-                            <div
-                                class="
-                                    absolute
-                                    top-2
-                                    left-2
-                                    w-7
-                                    h-7
-                                    bg-netflixRed
-                                    text-white
-                                    rounded-full
-                                    flex
-                                    items-center
-                                    justify-center
-                                    font-black
-                                    text-sm
-                                    shadow-md
-                                    z-10
-                                "
-                            >
-                                ${letter}
-                            </div>
-
-                            <img
-                                src="${photo}"
-                                alt="Letter ${letter}"
-                                class="w-full h-full object-cover"
-                            >
-
-                            <div
-                                class="
-                                    absolute
-                                    inset-0
-                                    bg-black/60
-                                    opacity-0
-                                    group-hover:opacity-100
-                                    flex
-                                    items-center
-                                    justify-center
-                                    transition
-                                    text-xs
-                                    font-semibold
-                                    text-center
-                                    p-2
-                                "
-                            >
-                                &#128247; Change photo
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }).join("");
+                            <img src="${photo}" alt="Letter ${letter}" class="w-full h-full object-cover" >
+                            <div class="absolute inset-0 bg-black/60  opacity-0 group-hover:opacity-100flex items-center justify-center transition text-xs font-semibold text-center p-2  "  >  &#128247; Change photo</div>
+                        </div> `;
+            }).join("");
         }
-
-
         function changePhoto(category, index) {
-
             let photosArray;
             let lettersArray;
-
             if (category === "will") {
-
-                photosArray =
-                    siteData.willPhotos;
-
-                lettersArray =
-                    siteData.willLetters;
-
+                photosArray = siteData.willPhotos;
+                lettersArray = siteData.willLetters;
             } else if (category === "yoube") {
-
-                photosArray =
-                    siteData.youbePhotos;
-
-                lettersArray =
-                    siteData.youbeLetters;
-
+                photosArray = siteData.youbePhotos;
+                lettersArray = siteData.youbeLetters;
             } else {
-
-                photosArray =
-                    siteData.minePhotos;
-
-                lettersArray =
-                    siteData.mineLetters;
+                photosArray = siteData.minePhotos;
+                lettersArray = siteData.mineLetters;
             }
-
-            const currentVal =
-                photosArray[index] || "";
-
-            const letter =
-                lettersArray[index];
-
-            const newUrl = prompt(
-                `Enter the image URL for add our image:`,
-                currentVal
-            );
-
+            const currentVal = photosArray[index] || "";
+            const letter = lettersArray[index];
+            const newUrl = prompt(`Enter the image URL for add our image:`, currentVal);
             if (newUrl !== null) {
-
-                photosArray[index] =
-                    newUrl.trim() !== ""
-                        ? newUrl.trim()
-                        : null;
-
+                photosArray[index] = newUrl.trim() !== "" ? newUrl.trim() : null;
                 renderProposalGrids();
             }
         }
-
-
-        /* =========================
-           ENTER WEBSITE
-        ========================== */
-
         function enterWebsite() {
-
-            const loginScreen =
-                document.getElementById("login-screen");
-
-            const mainContent =
-                document.getElementById("main-content");
-
+            const loginScreen = document.getElementById("login-screen");
+            const mainContent = document.getElementById("main-content");
             loginScreen.style.opacity = "0";
-
             setTimeout(() => {
-
                 loginScreen.style.display = "none";
-
                 mainContent.classList.remove("hidden");
-
                 setTimeout(() => {
-
                     mainContent.style.opacity = "1";
-
                 }, 50);
-
             }, 600);
         }
-
-
-        /* =========================
-           START EXPERIENCE
-        ========================== */
-
         function startExperience() {
-
-            const moments =
-                document.getElementById("section-moments");
-
-            const memories =
-                document.getElementById("memories-section");
-
+            const moments = document.getElementById("section-moments");
+            const memories = document.getElementById("memories-section");
             moments.classList.remove("hidden");
-
             memories.classList.remove("hidden");
-
-            moments.scrollIntoView({
-                behavior: "smooth"
-            });
+            moments.scrollIntoView({ behavior: "smooth" });
         }
-
-
-        /* =========================
-           PROPOSAL PAGE
-        ========================== */
-
         function openProposalPage() {
-
-            const mainContent =
-                document.getElementById("main-content");
-
-            const proposalPage =
-                document.getElementById("proposal-page");
-
+            const mainContent = document.getElementById("main-content");
+            const proposalPage = document.getElementById("proposal-page");
             mainContent.style.opacity = "0";
-
             stopMemorySong();
-
             setTimeout(() => {
-
                 mainContent.style.display = "none";
-
                 proposalPage.classList.remove("hidden");
-
                 setTimeout(() => {
-
                     proposalPage.style.opacity = "1";
-
                 }, 50);
-
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth"
                 });
-
             }, 600);
         }
-
-
         function backToMain() {
-
-            const proposalPage =
-                document.getElementById("proposal-page");
-
-            const mainContent =
-                document.getElementById("main-content");
-
+            const proposalPage = document.getElementById("proposal-page");
+            const mainContent = document.getElementById("main-content");
             proposalPage.style.opacity = "0";
-
             setTimeout(() => {
-
                 proposalPage.style.display = "none";
-
                 mainContent.style.display = "block";
-
                 setTimeout(() => {
-
                     mainContent.style.opacity = "1";
-
                 }, 50);
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
+                window.scrollTo({ top: 0, behavior: "smooth" });
             }, 600);
         }
-
-
-        /* =========================
-           YES / NO
-        ========================== */
-
         function handleYesClick() {
-
             confetti({
-                particleCount: 150,
-                spread: 90,
-                origin: {
-                    y: 0.6
-                }
+                particleCount: 150, spread: 90,
+                origin: { y: 0.6 }
             });
-
-            const responseDiv =
-                document.getElementById("proposal-response");
-
-            responseDiv.innerText =
-                "I won't force you, just take your time. I just told what I feel ✌️";
-
+            const responseDiv = document.getElementById("proposal-response");
+            responseDiv.innerText = "I won't force you, just take your time. I just told what I feel ✌️";
             responseDiv.classList.remove("hidden");
         }
-
-
         function moveNoButton() {
-
-            const btn =
-                document.getElementById("no-btn");
-
-            const x =
-                Math.random() * 200 - 100;
-
-            const y =
-                Math.random() * 100 - 50;
-
-            btn.style.transform =
-                `translate(${x}px,${y}px)`;
+            const btn = document.getElementById("no-btn");
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 100 - 50;
+            btn.style.transform = `translate(${x}px,${y}px)`;
         }
-
-
         function handleNoClick() {
-
-            alert(
-                "Nice try, but that button doesn't work in this universe! 😉❤️"
-            );
+            alert("Nice try, but that button doesn't work in this universe! 😉❤️");
         }
-
-
-        /* =========================
-           IMAGE MODAL
-        ========================== */
-
         function openImageModal(src) {
-
-            const modal =
-                document.getElementById("media-modal");
-
-            const container =
-                document.getElementById("modal-content-container");
-
+            const modal = document.getElementById("media-modal");
+            const container = document.getElementById("modal-content-container");
             container.innerHTML = `
-
                 <div class="relative w-full h-full flex items-center justify-center">
-
-                    <img
-                        src="${src}"
-                        alt="Enlarged Memory"
-                        class="
-                            max-w-[96vw]
-                            max-h-[92vh]
-                            w-auto
-                            h-auto
-                            object-contain
-                            rounded-xl
-                            border-[3px]
-                            border-netflixRed
-                            shadow-[0_0_50px_rgba(229,9,20,0.8)]
-                        "
-                    >
-
-                </div>
-
-            `;
-
+                    <img  src="${src}" alt="Enlarged Memory"  class=" max-w-[96vw] max-h-[92vh]  w-auto h-auto  object-contain rounded-xl border-[3px] border-netflixRed shadow-[0_0_50px_rgba(229,9,20,0.8)]" >
+                </div> `;
             modal.classList.remove("hidden");
-
             modal.style.display = "flex";
         }
-
-
-        /* =========================
-           CLOSE MODAL
-        ========================== */
-
         function closeModal() {
-
-            const modal =
-                document.getElementById("media-modal");
-
+            const modal = document.getElementById("media-modal");
             modal.style.display = "none";
-
             modal.classList.add("hidden");
-
-            document.getElementById(
-                "modal-content-container"
-            ).innerHTML = "";
+            document.getElementById("modal-content-container").innerHTML = "";
+        }
+               document.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+        function startFinalAnimation() {
+    const animation = document.getElementById("heart-animation");
+    const canvas = document.getElementById("particle-canvas");
+    const finalMessage = document.getElementById("final-message");
+    animation.style.display = "flex";
+    finalMessage.classList.remove("show");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+    for (let i = 0; i < 150; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: canvas.height + Math.random() * 300,
+            size: Math.random() * 6 + 2,
+            speed: Math.random() * 2 + 1,
+            color: ["#E50914", "#ff4d6d", "#ff8fa3", "#ffffff"][Math.floor(Math.random() * 4)]
+        });
+    }
+    function animateParticles() {
+        if (animation.style.display === "none") {
+            return;
         }
 
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        /* =========================
-           ESC KEY
-        ========================== */
+        particles.forEach(particle => {
+            ctx.fillStyle = particle.color;
+            ctx.font = `${particle.size * 3}px Arial`;
+            ctx.fillText("♥", particle.x, particle.y);
 
-        document.addEventListener("keydown", event => {
+            particle.y -= particle.speed;
 
-            if (event.key === "Escape") {
-
-                closeModal();
-
+            if (particle.y < -20) {
+                particle.y = canvas.height + 20;
+                particle.x = Math.random() * canvas.width;
             }
-
         });
 
-    </script>
+        requestAnimationFrame(animateParticles);
+    }
 
+    animateParticles();
+
+    setTimeout(() => {
+        finalMessage.classList.add("show");
+    }, 3500);
+}
+        function stopFinalAnimation() {
+            document.getElementById("heart-animation").style.display = "none";
+        }
+    </script>
+   <div id="heart-animation">
+    <button class="close-particle-btn" onclick="stopFinalAnimation()">✖</button>
+    <canvas id="particle-canvas"></canvas>
+    <div id="final-message">
+        <h1>You are not just my favourite chapter...You are the story i want to keep writing ❤️ </h1>
+    </div>
+</div>
 </body>
 
 </html>
